@@ -1,0 +1,31 @@
+#!/bin/bash
+QUIET=""
+if [ "$1" == "-q" ]; then
+  QUIET=1
+fi
+
+for i in $(cat list); do
+  hasbug=""
+  if [ -e "./build/${i}.hasbug" ]; then
+    hasbug="hasbug"
+    if [ -n "$QUIET" ]; then
+      continue
+    fi
+  fi
+  if [ -n "$QUIET" ]; then
+    BUILDLOG=$(ls build/"$i"*.build 2>/dev/null)
+    if [ -z "$BUILDLOG" ] ; then
+      continue
+    fi
+  fi
+
+  s=$(egrep -H '^Status: ' build/$i*amd64.build | awk -F: '{print $1 $3 " '$hasbug'"}')
+  if [ -n "$QUIET" ]; then
+    if [ -z "$(echo "$s" | grep -v successful)" ]; then
+      continue
+    fi
+  fi
+  if [ -n "$s" ]; then
+    echo "$s"
+  fi
+done

@@ -1,0 +1,3 @@
+#!/bin/bash
+. ./config
+grep-dctrl -e -F Depends,Build-Depends '('"$BUILD_DEPENDS"')' /var/lib/apt/lists/*_debian_dists_sid_main* -s Source | awk '{print $2}' | sort -u

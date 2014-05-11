@@ -1,0 +1,3 @@
+USER="debian-ruby@lists.debian.org"
+USERTAG="ruby2.0-rm"
+BUILD_DEPENDS='ruby2.0|gem2deb|ruby'

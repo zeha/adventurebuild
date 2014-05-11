@@ -1,0 +1,9 @@
+#!/bin/bash
+. ./config
+for src in $(bts select users:"$USER" tags:"$USERTAG" status:open | xargs bts status fields:source | awk '{print $2}'); do
+  if [ -z "$src" ]; then
+    continue
+  fi
+  touch "./build/${src}.hasbug"
+done
+
