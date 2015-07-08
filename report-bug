@@ -7,5 +7,4 @@ if [ -e "./build/${PKG}.hasbug" ]; then
   echo "Bug for package $PKG already exists."
   exit 1
 fi
-export EDITOR=vim
 exec reportbug -P "User: $USER" -P "Usertags: $USERTAG" --source --no-query-source --no-debconf --no-query-bts --no-verify -I -b --from-buildd $PN --attach=$BUILDLOG
