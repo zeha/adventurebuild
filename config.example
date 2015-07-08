@@ -1,3 +1,6 @@
 USER="debian-ruby@lists.debian.org"
 USERTAG="ruby2.0-rm"
 BUILD_DEPENDS='ruby2.0|gem2deb|ruby'
+DIST='unstable'
+SCHROOT='unstable-amd64-sbuild'
+DEFAULT_LISTFILE='list'

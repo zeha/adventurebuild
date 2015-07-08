@@ -1,5 +1,6 @@
 #!/bin/bash
-LISTFILE=list
+. ./config
+LISTFILE="$DEFAULT_LISTFILE"
 if [ ! -z "$1" ]; then
   LISTFILE="$1"
 fi
@@ -8,8 +9,8 @@ mkdir -p build
 cd build
 for i in $(cat "../${LISTFILE}"); do
   if [ ! -f ${i}.changes ]; then
-    apt-get source -d -t unstable $i
-    DEB_BUILD_OPTIONS=parallel=12 sbuild --no-run-lintian -d unstable $i*.dsc
+    apt-get source -d -t $DIST $i
+    DEB_BUILD_OPTIONS=parallel=12 sbuild --no-run-lintian -d $DIST -c $SCHROOT $i*.dsc
     echo $? > ${i}.result
   fi
 done
